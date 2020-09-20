@@ -1,0 +1,3 @@
+10,Elf,bow,sword,dust
+20,Human,gun,RPG
+30,Witch,fire ball,blizzard
