@@ -1,9 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import javax.swing.event.*;
 import javax.sound.midi.*;
 import java.util.*;
+import javax.swing.Box;
 
 public class BeatBox
 {
@@ -29,7 +36,7 @@ public class BeatBox
 		background = new JPanel(new BorderLayout());
 		background.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
-		background.add(BorderLayout.WEST, leftBox());
+        background.add(BorderLayout.WEST, leftBox());
 		background.add(BorderLayout.CENTER, centerPanel());
 		background.add(BorderLayout.EAST, rightBox());
 		frame.getContentPane().add(background);
@@ -82,12 +89,18 @@ public class BeatBox
 		JButton tempoUpButton = new JButton("Tempo Up");
 		tempoUpButton.addActionListener(new tempoUpListener());
 		JButton tempoDownButton = new JButton("Tempo Down");
-		tempoDownButton.addActionListener(new tempoDownListener());
+        tempoDownButton.addActionListener(new tempoDownListener());
+        JButton serializelt = new JButton("serializelt");
+        serializelt.addActionListener(new serializeltListener());
+        JButton restore = new JButton("restore");
+        restore.addActionListener(new restoreListener());
 		
 		rBox.add(startButton);
 		rBox.add(stopButton);
 		rBox.add(tempoUpButton);
-		rBox.add(tempoDownButton);
+        rBox.add(tempoDownButton);
+        rBox.add(serializelt);
+        rBox.add(restore);
 		
 		return rBox;
 	}
@@ -200,5 +213,49 @@ public class BeatBox
 			float tempoFactor = sequencer.getTempoFactor();
 			sequencer.setTempoFactor((float) (tempoFactor*0.97));
 		}
-	}
+    }
+    
+    class serializeltListener implements ActionListener{
+        public void actionPerformed(ActionEvent ev){
+            boolean[] checkBoxState = new boolean[256];
+            for (int i = 0; i < 256; i++) {
+                JCheckBox jc = (JCheckBox) checkboxList.get(i);
+                if(jc.isSelected()){
+                    checkBoxState[i] = true;
+                }
+            }
+
+            try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(new File("Checkbox.ser")))) {
+                os.writeObject(checkBoxState);
+            } catch (Exception e) {
+                //TODO: handle exception
+                e.printStackTrace();
+            }
+        }
+    }
+
+    class restoreListener implements ActionListener{
+        public void actionPerformed(ActionEvent ev){
+            boolean[] checkBoxState = null;
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.showOpenDialog(frame);
+            try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(fileChooser.getSelectedFile()))) {
+                checkBoxState = (boolean[]) is.readObject();
+            } catch (Exception e) {
+                //TODO: handle exception
+                e.printStackTrace();
+            }
+
+            for (int i = 0; i < 256; i++) {
+                JCheckBox check = (JCheckBox) checkboxList.get(i);
+                if(checkBoxState[i]){
+                    check.setSelected(true);
+                }else{
+                    check.setSelected(false);
+                }
+            }
+            sequencer.stop();
+            buildTrackAndStart();
+        }
+    }
 }
