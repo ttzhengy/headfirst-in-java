@@ -4,12 +4,15 @@ import java.io.*;
 import java.util.*;
 import java.awt.*;
 
-public class QuizCardBuilder {
+public class QuizCardPlayer {
     private JFrame frame = new JFrame("Quiz Card Builder");
     private JPanel panel = new JPanel();
     ArrayList<QuizCard> cardList = new ArrayList<QuizCard>();
     JTextArea qText;
     JTextArea aText;
+    boolean isShowedAnswer = false;
+    int cardListSize = 0;
+    int cardIndex = 0;
 
     public static void main(String[] args) {
         QuizCardBuilder q = new QuizCardBuilder();
@@ -19,13 +22,8 @@ public class QuizCardBuilder {
     public void go(){
         JMenuBar mBar = new JMenuBar();
         JMenu menu = new JMenu("File");
-        JMenuItem newItem = new JMenuItem("New");
-        JMenuItem saveItem = new JMenuItem("Save");
         JMenuItem loadItem = new JMenuItem("Load");
-        newItem.addActionListener(new NewMenuListener());
-        saveItem.addActionListener(new SaveMenuListener());
-        menu.add(newItem); 
-        menu.add(saveItem);
+        loadItem.addActionListener(new LoadMenuListener());
         menu.add(loadItem);
         mBar.add(menu);
 
@@ -61,68 +59,74 @@ public class QuizCardBuilder {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public class SaveMenuListener implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-            // QuizCard card = new QuizCard(qText.getText(), aText.getText());
-            // cardList.add(card);
-
-            JFileChooser fileSave = new JFileChooser();
-            fileSave.showSaveDialog(frame);
-            saveFile(fileSave.getSelectedFile());
-        }
-    }
-
-    class NewMenuListener implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-            cardList.clear();
-            clearCard();
-        }
-    }
-
     class NextCardListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
-            QuizCard card = new QuizCard(qText.getText(), aText.getText());
-            cardList.add(card);
-            clearCard();
+            if(!isShowedAnswer){
+                aText.setText(cardList.get(cardIndex).answer);
+                isShowedAnswer = true;
+            }else{
+                if(cardIndex < cardListSize){
+                    cardIndex++;
+                    showNextCard();
+                }else{
+                    clearCard();
+                    qText.setText("No more card!");
+                }
+            }
+        }
+    }
+
+    class LoadMenuListener implements ActionListener{
+        public void actionPerformed(ActionEvent e){
+            JFileChooser fileLoad = new JFileChooser();
+            fileLoad.showOpenDialog(frame);
+            loadFile(fileLoad.getSelectedFile());
+        }
+    }
+
+    private void loadFile(File file){
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))){
+            String[] qa;
+            while(reader.readLine() != null){
+                qa = reader.readLine().split("/");
+                cardList.add(new QuizCard(qa[0], qa[1]));
+                cardListSize++;
+            }
+        } catch (Exception e) {
+            //TODO: handle exception
+            System.out.println("Can't read the cardList in");
+            e.printStackTrace();
         }
     }
 
     public void clearCard(){
         qText.setText("");
         aText.setText("");
-        qText.requestFocus();
+        aText.requestFocus();
     }
 
-    public void saveFile(File file){
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-            for (QuizCard quizCard : cardList) {
-                writer.write(quizCard.getQuestion() + "/");
-                writer.write(quizCard.getAnswer() + "\n");
-            }
-        } catch (Exception e) {
-            //TODO: handle exception
-            System.out.println("Can't write the cardList Out");
-            e.printStackTrace();
-        }
-    }
-
-}
-
-class QuizCard{
-
-    String question;
-    String answer;
-
-    QuizCard(String q,String a){
-        question = q;
-        answer = a;
-    }
-
-    public String getQuestion(){
-        return question;
-    }
-
-    public String getAnswer(){
-        return answer;
+    public void showNextCard(){
+        clearCard();
+        qText.setText(cardList.get(cardIndex).question);
     }
 }
+
+// class QuizCard{
+
+//     String question;
+//     String answer;
+
+//     QuizCard(String q,String a){
+//         question = q;
+//         answer = a;
+//     }
+
+//     public String getQuestion(){
+//         return question;
+//     }
+
+//     public String getAnswer(){
+//         return answer;
+//     }
+// }
+
