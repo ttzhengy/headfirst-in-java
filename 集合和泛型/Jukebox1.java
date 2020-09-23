@@ -71,6 +71,10 @@ public class Jukebox1{
         public int compareTo(Song s){
             return title.compareTo(s.getTitle());
         }
+
+        public String toString(){
+            return title + " " + artist + " " + rating + " " + bpm;
+        }
     }
 
     class ArtistCompare implements Comparator<Song>{
