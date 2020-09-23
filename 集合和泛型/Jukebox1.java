@@ -12,8 +12,8 @@ public class Jukebox1{
     public void go(){
         getSong();
         System.out.println(songList);
-        Collections.sort(songList);
-        System.out.println(songList);
+        // Collections.sort(songList);
+        // System.out.println(songList);
 
         ArtistCompare artistCompare = new ArtistCompare();
         Collections.sort(songList, artistCompare);
@@ -39,7 +39,7 @@ public class Jukebox1{
         songList.add(song);
     }
 
-    class Song implements Comparable<Song>{
+    class Song {
         private String title;
         private String artist;
         private String rating;
@@ -68,9 +68,9 @@ public class Jukebox1{
             return bpm;
         }
 
-        public int compareTo(Song s){
-            return title.compareTo(s.getTitle());
-        }
+        // public int compareTo(Song s){
+        //     return title.compareTo(s.getTitle());
+        // }
 
         public String toString(){
             return title + " " + artist + " " + rating + " " + bpm;
