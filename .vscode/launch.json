@@ -1,0 +1,63 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BeatBox<headfirst-in-java_978aa4e3>",
+            "request": "launch",
+            "mainClass": "BeatBox",
+            "projectName": "headfirst-in-java_978aa4e3"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Box<headfirst-in-java_978aa4e3>",
+            "request": "launch",
+            "mainClass": "Box",
+            "projectName": "headfirst-in-java_978aa4e3"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Box1<headfirst-in-java_978aa4e3>",
+            "request": "launch",
+            "mainClass": "Box1",
+            "projectName": "headfirst-in-java_978aa4e3"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GameSaverTest<headfirst-in-java_978aa4e3>",
+            "request": "launch",
+            "mainClass": "GameSaverTest",
+            "projectName": "headfirst-in-java_978aa4e3"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-MusicServer<headfirst-in-java_978aa4e3>",
+            "request": "launch",
+            "mainClass": "MusicServer",
+            "projectName": "headfirst-in-java_978aa4e3"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-QuizCardBuilder<headfirst-in-java_978aa4e3>",
+            "request": "launch",
+            "mainClass": "QuizCardBuilder",
+            "projectName": "headfirst-in-java_978aa4e3"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-QuizCardPlayer<headfirst-in-java_978aa4e3>",
+            "request": "launch",
+            "mainClass": "QuizCardPlayer",
+            "projectName": "headfirst-in-java_978aa4e3"
+        }
+    ]
+}
