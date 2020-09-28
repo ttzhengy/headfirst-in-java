@@ -5,12 +5,12 @@ public class PairTest1 {
         // Pair<String> mm = ArrayAlg.minmax(words);
         // System.out.println(mm.toString());
 
-        int a = ArrayAlg.getMiddle(3,5,1,8,6,2,10);
+        int a = ArrayAlg1.getMiddle(3,5,1,8,6,2,10);
         System.out.println(a);
     }
 }
 
-class ArrayAlg{
+class ArrayAlg1{
     public static Pair<String> minmax(String[] a) {     //调用泛型类
         String min = a[0];
         String max = a[0];
