@@ -1,0 +1,42 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-GenericReflectionTest<泛型和反射_2565d727>",
+            "request": "launch",
+            "mainClass": "GenericReflectionTest",
+            "projectName": "泛型和反射_2565d727"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PairTest1<泛型和反射_2565d727>",
+            "request": "launch",
+            "mainClass": "PairTest1",
+            "projectName": "泛型和反射_2565d727"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PairTest2<泛型和反射_2565d727>",
+            "request": "launch",
+            "mainClass": "PairTest2",
+            "projectName": "泛型和反射_2565d727"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PairTest3<泛型和反射_2565d727>",
+            "request": "launch",
+            "mainClass": "PairTest3",
+            "projectName": "泛型和反射_2565d727"
+        }
+    ]
+}

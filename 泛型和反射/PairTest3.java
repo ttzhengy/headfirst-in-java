@@ -19,13 +19,13 @@ public class PairTest3 {
         System.out.println(result.getFirst() + "\n" + result.getSecond());
     }
 
-    public static void printBuddies(Pair<? extends Employee> p) {
+    public static void printBuddies(Pair<? extends Employee> p) {       //通配符类型
         Employee first = p.getFirst();
         Employee second = p.getSecond();
         System.out.println(first.getName() + " and " + second.getName() + " are buddies");
     }
 
-    public static void minmaxBonus(Manager[] a, Pair<? super Manager> result) {
+    public static void minmaxBonus(Manager[] a, Pair<? super Manager> result) {     //超类限定通配符
         if(a.length == 0)return;
         Manager min = a[0];
         Manager max = a[0];
@@ -44,7 +44,7 @@ public class PairTest3 {
 }
 
 class ArrayAlg3{
-    public static boolean hasNull(Pair<?> p) {
+    public static boolean hasNull(Pair<?> p) {      //无限定通配符，测试是否null
         return p.getFirst() == null || p.getSecond() == null;
     }
 
@@ -52,7 +52,7 @@ class ArrayAlg3{
         swapHelper(p);
     }
 
-    public static <T> void swapHelper(Pair<T> p) {
+    public static <T> void swapHelper(Pair<T> p) {      //不能将通配符作为类型，因此捕获通配符，转化为泛型方法
         T t = p.getFirst();
         p.setFirst(p.getSecond());
         p.setSecond(t);
